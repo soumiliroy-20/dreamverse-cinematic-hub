@@ -35,7 +35,7 @@ export const Route = createFileRoute("/dreamverse")({
 
 function DreamVerseHome() {
   const { q } = Route.useSearch();
-  const featured = movies[11];
+  const featured = movies.find((m) => m.id === "blush-horizon") ?? movies[0]!;
   const continueWatching = movies.filter((m) => m.progress);
   const recommended = [...movies].sort((a, b) => b.rating - a.rating).slice(0, 6);
   const results = q ? searchMovies(q) : [];
