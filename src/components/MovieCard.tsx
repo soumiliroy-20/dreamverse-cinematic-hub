@@ -8,7 +8,7 @@ import { useLibrary } from "@/lib/library-context";
 type Props = {
   movie: Movie;
   className?: string;
-  showProgress?: boolean;
+  showProgress?: boolean | undefined;
 };
 
 export function MovieCard({ movie, className = "", showProgress = false }: Props) {
