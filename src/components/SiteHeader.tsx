@@ -19,7 +19,7 @@ export function SiteHeader() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    navigate({ to: "/dreamverse", search: { q: query || undefined } });
+    navigate({ to: "/dreamverse", search: query ? { q: query } : {} });
   };
 
   return (

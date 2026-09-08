@@ -11,9 +11,10 @@ import { categories, collections, movies, moviesByCategory, searchMovies } from 
 type DreamSearch = { q?: string };
 
 export const Route = createFileRoute("/dreamverse")({
-  validateSearch: (search: Record<string, unknown>): DreamSearch => ({
-    q: typeof search.q === "string" && search.q ? search.q : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): DreamSearch => {
+    const raw = search["q"];
+    return typeof raw === "string" && raw ? { q: raw } : {};
+  },
   head: () => ({
     meta: [
       { title: "DreamVerse — Pastel Cinema on CineVerse" },

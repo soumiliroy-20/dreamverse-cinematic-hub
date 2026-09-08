@@ -5,7 +5,7 @@ import { MovieCard } from "./MovieCard";
 type Props = {
   title: string;
   movies: Movie[];
-  showProgress?: boolean;
+  showProgress?: boolean | undefined;
 };
 
 export function MovieRow({ title, movies, showProgress }: Props) {
