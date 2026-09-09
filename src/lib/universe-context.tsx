@@ -1,4 +1,12 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
 export type UniverseId = "dreamverse" | "heroverse";
 
@@ -10,6 +18,8 @@ export type UniverseTheme = {
   available: boolean;
   /** Matches the [data-universe] selector in styles.css */
   themeAttribute: UniverseId;
+  /** Home route for this universe */
+  home: "/dreamverse" | "/heroverse";
 };
 
 export const universes: Record<UniverseId, UniverseTheme> = {
@@ -21,21 +31,40 @@ export const universes: Record<UniverseId, UniverseTheme> = {
       "Pastel worlds, slow-burn romances and gentle fantasies — curated for dreamers.",
     available: true,
     themeAttribute: "dreamverse",
+    home: "/dreamverse",
   },
   heroverse: {
     id: "heroverse",
     name: "HeroVerse",
-    tagline: "Bold, thunderous, larger than life.",
-    description: "Epic sagas and legendary heroes. Arriving in a future release.",
-    available: false,
+    tagline: "Where legends rise and worlds collide.",
+    description:
+      "Cosmic sagas, futuristic cities and legendary heroes — cinema at maximum voltage.",
+    available: true,
     themeAttribute: "heroverse",
+    home: "/heroverse",
   },
+};
+
+export const otherUniverse = (id: UniverseId): UniverseId =>
+  id === "dreamverse" ? "heroverse" : "dreamverse";
+
+type Transition = {
+  active: boolean;
+  /** Universe we are travelling to */
+  to: UniverseId;
+  /** Universe we left */
+  from: UniverseId;
 };
 
 type UniverseContextValue = {
   universe: UniverseTheme;
   universeList: UniverseTheme[];
   setUniverse: (id: UniverseId) => void;
+  /** Kicks off the cinematic portal animation, then applies the universe. */
+  travelTo: (id: UniverseId) => void;
+  commitTravel: () => void;
+  endTravel: () => void;
+  transition: Transition;
   preferred: UniverseId | null;
 };
 
@@ -44,6 +73,11 @@ const STORAGE_KEY = "cineverse.universe";
 
 export function UniverseProvider({ children }: { children: ReactNode }) {
   const [preferred, setPreferred] = useState<UniverseId | null>(null);
+  const [transition, setTransition] = useState<Transition>({
+    active: false,
+    to: "dreamverse",
+    from: "dreamverse",
+  });
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as UniverseId | null;
@@ -56,17 +90,41 @@ export function UniverseProvider({ children }: { children: ReactNode }) {
     document.documentElement.setAttribute("data-universe", active);
   }, [active]);
 
+  const setUniverse = useCallback((id: UniverseId) => {
+    setPreferred(id);
+    localStorage.setItem(STORAGE_KEY, id);
+  }, []);
+
+  const travelTo = useCallback(
+    (id: UniverseId) => {
+      setTransition((t) => (t.active ? t : { active: true, to: id, from: active }));
+    },
+    [active],
+  );
+
+  const commitTravel = useCallback(() => {
+    setTransition((t) => {
+      if (t.active) setUniverse(t.to);
+      return t;
+    });
+  }, [setUniverse]);
+
+  const endTravel = useCallback(() => {
+    setTransition((t) => ({ ...t, active: false }));
+  }, []);
+
   const value = useMemo<UniverseContextValue>(
     () => ({
       universe: universes[active],
       universeList: Object.values(universes),
       preferred,
-      setUniverse: (id) => {
-        setPreferred(id);
-        localStorage.setItem(STORAGE_KEY, id);
-      },
+      setUniverse,
+      travelTo,
+      commitTravel,
+      endTravel,
+      transition,
     }),
-    [active, preferred],
+    [active, preferred, setUniverse, travelTo, commitTravel, endTravel, transition],
   );
 
   return <UniverseContext.Provider value={value}>{children}</UniverseContext.Provider>;
