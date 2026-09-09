@@ -1,4 +1,8 @@
+export type UniverseKey = "dreamverse" | "heroverse";
+
 export type Movie = {
+  /** Defaults to dreamverse when omitted. */
+  universe?: UniverseKey;
   id: string;
   title: string;
   year: number;
@@ -216,15 +220,307 @@ export const collections = [
   },
 ];
 
-export const getMovie = (id: string) => movies.find((m) => m.id === id);
+/* ------------------------------------------------------------------ *
+ * HeroVerse catalogue (placeholder data — swap for a real API later)  *
+ * ------------------------------------------------------------------ */
 
-export const moviesByCategory = (category: string) =>
-  movies.filter((m) => m.categories.includes(category));
+export const heroMovies: Movie[] = [
+  {
+    universe: "heroverse",
+    id: "titan-protocol",
+    title: "Titan Protocol",
+    year: 2025,
+    rating: 9.1,
+    duration: "2h 34m",
+    genres: ["Action", "Sci-Fi"],
+    categories: ["Trending Now", "Team-Ups", "Future Tech"],
+    synopsis:
+      "When a dormant defence AI wakes with a will of its own, six rivals must fight as one legion.",
+    tint: "210",
+    cast: ["Kade Ryland", "Mira Sol", "August Vane"],
+    director: "Dominic Reyes",
+    progress: 62,
+  },
+  {
+    universe: "heroverse",
+    id: "neon-vigil",
+    title: "Neon Vigil",
+    year: 2024,
+    rating: 8.7,
+    duration: "2h 07m",
+    genres: ["Action", "Thriller"],
+    categories: ["Trending Now", "Street Level"],
+    synopsis: "A masked courier polices the rain-slick underlevels of a city that never powers down.",
+    tint: "200",
+    cast: ["Iyla Kwon", "Bram Osei"],
+    director: "Sana Ibrahim",
+  },
+  {
+    universe: "heroverse",
+    id: "cosmic-requiem",
+    title: "Cosmic Requiem",
+    year: 2025,
+    rating: 9.3,
+    duration: "2h 51m",
+    genres: ["Sci-Fi", "Adventure"],
+    categories: ["Trending Now", "Cosmic Sagas", "New Releases"],
+    synopsis: "At the edge of a dying galaxy, a fallen guardian bargains with the architects of time.",
+    tint: "230",
+    cast: ["Nyra Voss", "Halden Pike", "Rook"],
+    director: "Elena Marchetti",
+  },
+  {
+    universe: "heroverse",
+    id: "iron-covenant",
+    title: "Iron Covenant",
+    year: 2023,
+    rating: 8.4,
+    duration: "2h 19m",
+    genres: ["Action", "Drama"],
+    categories: ["Team-Ups", "Legend Origins"],
+    synopsis: "Two armoured dynasties sign a truce that only one of them intends to keep.",
+    tint: "15",
+    cast: ["Cassian Ward", "Leora Finch"],
+    director: "Marcus Aledo",
+    progress: 28,
+  },
+  {
+    universe: "heroverse",
+    id: "quantum-fracture",
+    title: "Quantum Fracture",
+    year: 2026,
+    rating: 8.9,
+    duration: "2h 12m",
+    genres: ["Sci-Fi", "Action"],
+    categories: ["New Releases", "Future Tech", "Cosmic Sagas"],
+    synopsis: "A physicist splinters across nine realities and every version of her wants the same key.",
+    tint: "195",
+    cast: ["Dr. Yuki Sato", "Ravi Deol"],
+    director: "Priyanka Rao",
+  },
+  {
+    universe: "heroverse",
+    id: "shadow-of-the-sentinel",
+    title: "Shadow of the Sentinel",
+    year: 2022,
+    rating: 8.2,
+    duration: "2h 26m",
+    genres: ["Action", "Mystery"],
+    categories: ["Street Level", "Villain Origins"],
+    synopsis: "The city's greatest protector is unmasked as the architect of its longest nightmare.",
+    tint: "250",
+    cast: ["Nolan Frey", "Adaeze Okoro"],
+    director: "Jonah Kettler",
+  },
+  {
+    universe: "heroverse",
+    id: "starforged",
+    title: "Starforged",
+    year: 2024,
+    rating: 8.8,
+    duration: "2h 40m",
+    genres: ["Adventure", "Fantasy"],
+    categories: ["Cosmic Sagas", "Legend Origins"],
+    synopsis: "A blacksmith of dead suns hammers the last shard of creation into a weapon.",
+    tint: "45",
+    cast: ["Thora Bright", "Kell Amadi"],
+    director: "Ingrid Halvorsen",
+    progress: 84,
+  },
+  {
+    universe: "heroverse",
+    id: "gridrunner",
+    title: "Gridrunner",
+    year: 2025,
+    rating: 8.1,
+    duration: "1h 58m",
+    genres: ["Sci-Fi", "Thriller"],
+    categories: ["Future Tech", "New Releases"],
+    synopsis: "A courier races light itself through a city rendered entirely in code.",
+    tint: "190",
+    cast: ["Six", "Ana Petrova"],
+    director: "Kenji Aoyama",
+  },
+  {
+    universe: "heroverse",
+    id: "the-crimson-oath",
+    title: "The Crimson Oath",
+    year: 2023,
+    rating: 8.6,
+    duration: "2h 22m",
+    genres: ["Action", "War"],
+    categories: ["Team-Ups", "Trending Now"],
+    synopsis: "Seven soldiers swear an oath in blood on the night the sky splits open.",
+    tint: "10",
+    cast: ["Vera Lang", "Idris Kane"],
+    director: "Samuel Obi",
+  },
+  {
+    universe: "heroverse",
+    id: "mutant-tide",
+    title: "Mutant Tide",
+    year: 2024,
+    rating: 8.3,
+    duration: "2h 09m",
+    genres: ["Action", "Drama"],
+    categories: ["Legend Origins", "Street Level"],
+    synopsis: "A generation born with impossible gifts decides it is done asking permission.",
+    tint: "170",
+    cast: ["Sable Nyx", "Julien Roche"],
+    director: "Amara Boateng",
+  },
+  {
+    universe: "heroverse",
+    id: "eclipse-directive",
+    title: "Eclipse Directive",
+    year: 2026,
+    rating: 9.0,
+    duration: "2h 47m",
+    genres: ["Sci-Fi", "Action"],
+    categories: ["New Releases", "Trending Now", "Cosmic Sagas"],
+    synopsis: "The sun is switched off for eleven minutes and something walks out of the dark.",
+    tint: "265",
+    cast: ["Rhea Oduya", "Callum Vance"],
+    director: "Dominic Reyes",
+  },
+  {
+    universe: "heroverse",
+    id: "warden-zero",
+    title: "Warden Zero",
+    year: 2022,
+    rating: 7.9,
+    duration: "2h 01m",
+    genres: ["Thriller", "Sci-Fi"],
+    categories: ["Villain Origins", "Future Tech"],
+    synopsis: "The prison built for gods hires a warden who used to be one.",
+    tint: "225",
+    cast: ["Otto Grimm", "Lin Zhao"],
+    director: "Sana Ibrahim",
+  },
+];
 
-export const searchMovies = (query: string) => {
+export const heroCategories = [
+  "Trending Now",
+  "New Releases",
+  "Cosmic Sagas",
+  "Team-Ups",
+  "Street Level",
+  "Future Tech",
+  "Legend Origins",
+  "Villain Origins",
+] as const;
+
+export const heroCollections = [
+  {
+    id: "avengers",
+    name: "Avengers Collection",
+    blurb: "Earth's mightiest, assembled across every era.",
+    count: 26,
+  },
+  {
+    id: "spider-verse",
+    name: "Spider-Verse Collection",
+    blurb: "Every web, every world, every wall-crawler.",
+    count: 14,
+  },
+  {
+    id: "guardians",
+    name: "Guardians Collection",
+    blurb: "Outlaws, misfits and one very loud spaceship.",
+    count: 11,
+  },
+  {
+    id: "mutants",
+    name: "Mutants Collection",
+    blurb: "Born different. Built unstoppable.",
+    count: 19,
+  },
+  {
+    id: "cosmic-legends",
+    name: "Cosmic Legends",
+    blurb: "Sagas that span galaxies and centuries.",
+    count: 22,
+  },
+  {
+    id: "future-heroes",
+    name: "Future Heroes",
+    blurb: "Neon skylines, quantum tech, tomorrow's legends.",
+    count: 17,
+  },
+];
+
+export type Hero = {
+  id: string;
+  name: string;
+  alias: string;
+  description: string;
+};
+
+export const heroes: Hero[] = [
+  {
+    id: "vanta",
+    name: "Vanta",
+    alias: "The Nightfall Sentinel",
+    description: "Bends light itself into armour and silence.",
+  },
+  {
+    id: "solara",
+    name: "Solara",
+    alias: "Keeper of the Star Forge",
+    description: "Carries the heat of a dying sun in both hands.",
+  },
+  {
+    id: "ironhold",
+    name: "Ironhold",
+    alias: "The Unbroken Line",
+    description: "Twelve tons of adaptive alloy and stubborn loyalty.",
+  },
+  {
+    id: "cipher",
+    name: "Cipher",
+    alias: "Ghost in the Grid",
+    description: "Walks through firewalls the way others walk through doors.",
+  },
+  {
+    id: "revenant",
+    name: "Revenant",
+    alias: "The Crimson Oathkeeper",
+    description: "Died once. Came back with terms.",
+  },
+  {
+    id: "nova-lin",
+    name: "Nova Lin",
+    alias: "Voice of the Cosmos",
+    description: "Speaks to gravity and is usually obeyed.",
+  },
+];
+
+/* ------------------------------------------------------------------ *
+ * Universe-aware helpers                                             *
+ * ------------------------------------------------------------------ */
+
+export const allMovies: Movie[] = [...movies, ...heroMovies];
+
+export const catalogFor = (universe: UniverseKey = "dreamverse") =>
+  universe === "heroverse" ? heroMovies : movies;
+
+export const categoriesFor = (universe: UniverseKey = "dreamverse"): readonly string[] =>
+  universe === "heroverse" ? heroCategories : categories;
+
+export const collectionsFor = (universe: UniverseKey = "dreamverse") =>
+  universe === "heroverse" ? heroCollections : collections;
+
+export const getMovie = (id: string) => allMovies.find((m) => m.id === id);
+
+export const movieUniverse = (movie: Movie): UniverseKey => movie.universe ?? "dreamverse";
+
+export const moviesByCategory = (category: string, universe: UniverseKey = "dreamverse") =>
+  catalogFor(universe).filter((m) => m.categories.includes(category));
+
+export const searchMovies = (query: string, universe: UniverseKey = "dreamverse") => {
   const q = query.trim().toLowerCase();
   if (!q) return [];
-  return movies.filter(
+  return catalogFor(universe).filter(
     (m) =>
       m.title.toLowerCase().includes(q) ||
       m.genres.some((g) => g.toLowerCase().includes(q)) ||
