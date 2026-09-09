@@ -1,4 +1,8 @@
+export type UniverseKey = "dreamverse" | "heroverse";
+
 export type Movie = {
+  /** Defaults to dreamverse when omitted. */
+  universe?: UniverseKey;
   id: string;
   title: string;
   year: number;
