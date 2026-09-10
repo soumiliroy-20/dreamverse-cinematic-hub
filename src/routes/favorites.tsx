@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { MovieCard } from "@/components/MovieCard";
-import { movies } from "@/data/movies";
+import { allMovies } from "@/data/movies";
 import { useLibrary } from "@/lib/library-context";
 
 export const Route = createFileRoute("/favorites")({
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/favorites")({
 
 function FavoritesPage() {
   const { favorites } = useLibrary();
-  const loved = movies.filter((m) => favorites.includes(m.id));
+  const loved = allMovies.filter((m) => favorites.includes(m.id));
 
   return (
     <AppShell>

@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Heart, Bookmark, Star } from "lucide-react";
-import poster from "@/assets/poster-placeholder.jpg";
+import { Heart, Bookmark, Star, Play } from "lucide-react";
+import dreamPoster from "@/assets/poster-placeholder.jpg";
+import heroPoster from "@/assets/poster-heroverse.jpg";
 import type { Movie } from "@/data/movies";
+import { movieUniverse } from "@/data/movies";
 import { useLibrary } from "@/lib/library-context";
 
 type Props = {
@@ -15,12 +17,16 @@ export function MovieCard({ movie, className = "", showProgress = false }: Props
   const { toggleFavorite, toggleWatchlist, isFavorite, inWatchlist } = useLibrary();
   const fav = isFavorite(movie.id);
   const saved = inWatchlist(movie.id);
+  const hero = movieUniverse(movie) === "heroverse";
+  const poster = hero ? heroPoster : dreamPoster;
 
   return (
     <motion.article
-      whileHover={{ y: -8 }}
+      whileHover={{ y: -8, scale: hero ? 1.03 : 1 }}
       transition={{ type: "spring", stiffness: 260, damping: 22 }}
-      className={`group relative overflow-hidden rounded-3xl glass-panel ${className}`}
+      className={`group relative overflow-hidden rounded-3xl glass-panel ${
+        hero ? "transition-shadow hover:hero-glow" : ""
+      } ${className}`}
     >
       <Link to="/movie/$movieId" params={{ movieId: movie.id }} className="block">
         <div className="relative aspect-2/3 overflow-hidden rounded-3xl">
@@ -31,13 +37,18 @@ export function MovieCard({ movie, className = "", showProgress = false }: Props
             width={640}
             height={960}
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            style={{ filter: `hue-rotate(${Number(movie.tint) - 340}deg) saturate(1.1)` }}
+            style={{
+              filter: hero
+                ? `hue-rotate(${Number(movie.tint) - 210}deg) saturate(1.15) contrast(1.05)`
+                : `hue-rotate(${Number(movie.tint) - 340}deg) saturate(1.1)`,
+            }}
           />
           <div
             className="absolute inset-0"
             style={{
-              background:
-                "linear-gradient(to top, oklch(0.3 0.06 340 / 72%) 0%, transparent 55%)",
+              background: hero
+                ? "linear-gradient(to top, rgba(8,11,22,0.92) 0%, rgba(8,11,22,0.25) 45%, transparent 70%)"
+                : "linear-gradient(to top, oklch(0.3 0.06 340 / 72%) 0%, transparent 55%)",
             }}
           />
           <div className="absolute inset-x-0 bottom-0 p-4">
@@ -46,6 +57,11 @@ export function MovieCard({ movie, className = "", showProgress = false }: Props
               <Star className="h-3 w-3 fill-current" />
               {movie.rating.toFixed(1)} · {movie.year} · {movie.genres[0]}
             </p>
+            {hero ? (
+              <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-[11px] font-medium text-primary-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <Play className="h-3 w-3" /> Play trailer
+              </span>
+            ) : null}
             {showProgress && movie.progress ? (
               <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/30">
                 <div

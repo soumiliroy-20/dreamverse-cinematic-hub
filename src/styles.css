@@ -85,15 +85,60 @@
   --shadow-float: 0 30px 70px -30px oklch(0.6 0.14 340 / 55%);
 }
 
-/* Reserved for the next universe (not implemented yet) */
+/* HeroVerse — cinematic, futuristic, high-voltage */
 [data-universe="heroverse"] {
-  --background: oklch(0.19 0.04 265);
-  --foreground: oklch(0.97 0.01 250);
-  --primary: oklch(0.78 0.15 85);
-  --primary-glow: oklch(0.68 0.14 250);
-  --glass: oklch(1 0 0 / 10%);
-  --glass-border: oklch(1 0 0 / 18%);
-  --gradient-dream: linear-gradient(135deg, oklch(0.22 0.05 265), oklch(0.18 0.04 250));
+  --radius: 1rem;
+  --font-display-family: "Montserrat", "Poppins", system-ui, sans-serif;
+  --font-body-family: "Inter", system-ui, sans-serif;
+
+  --hv-blue: #00bfff;
+  --hv-red: #ff3b3b;
+  --hv-gold: #ffd700;
+  --hv-silver: #d9d9d9;
+
+  --background: #080b16;
+  --foreground: #ffffff;
+  --card: #1b2435;
+  --card-foreground: #ffffff;
+  --popover: #101827;
+  --popover-foreground: #ffffff;
+  --primary: #00bfff;
+  --primary-foreground: #05080f;
+  --primary-glow: #ffd700;
+  --secondary: #101827;
+  --secondary-foreground: #d9d9d9;
+  --muted: #101827;
+  --muted-foreground: #b6bdd0;
+  --accent: #1b2435;
+  --accent-foreground: #00bfff;
+  --destructive: #ff3b3b;
+  --destructive-foreground: #ffffff;
+  --border: rgba(217, 217, 217, 0.14);
+  --input: rgba(217, 217, 217, 0.18);
+  --ring: #00bfff;
+
+  --glass: rgba(27, 36, 53, 0.62);
+  --glass-border: rgba(0, 191, 255, 0.22);
+
+  --gradient-dream: linear-gradient(135deg, #101827 0%, #0b1120 45%, #1b2435 100%);
+  --gradient-primary: linear-gradient(120deg, #00bfff, #ffd700);
+  --shadow-soft: 0 18px 50px -20px rgba(0, 191, 255, 0.45);
+  --shadow-float: 0 34px 80px -28px rgba(0, 191, 255, 0.6);
+}
+
+html[data-universe="heroverse"] body {
+  background-color: #080b16;
+  background-image:
+    radial-gradient(1000px circle at 10% -10%, rgba(0, 191, 255, 0.22), transparent 60%),
+    radial-gradient(900px circle at 90% 0%, rgba(255, 59, 59, 0.16), transparent 62%),
+    radial-gradient(800px circle at 50% 110%, rgba(255, 215, 0, 0.1), transparent 60%);
+}
+
+html[data-universe="heroverse"] h1,
+html[data-universe="heroverse"] h2,
+html[data-universe="heroverse"] h3 {
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 @layer base {
@@ -184,4 +229,40 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+@keyframes energy-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 34px 8px rgba(0, 191, 255, 0.35);
+  }
+}
+
+@keyframes energy-drift {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-120px) scale(1.25);
+    opacity: 0;
+  }
+}
+
+@utility animate-energy-pulse {
+  animation: energy-pulse 2.8s ease-in-out infinite;
+}
+
+@utility animate-energy-drift {
+  animation: energy-drift 7s linear infinite;
+}
+
+@utility hero-glow {
+  box-shadow: 0 0 40px -10px var(--primary);
 }

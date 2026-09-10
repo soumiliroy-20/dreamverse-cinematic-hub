@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DreamverseRouteImport } from './routes/dreamverse'
 import { Route as FavoritesRouteImport } from './routes/favorites'
+import { Route as HeroverseRouteImport } from './routes/heroverse'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SignupRouteImport } from './routes/signup'
@@ -32,6 +33,11 @@ const DreamverseRoute = DreamverseRouteImport.update({
 const FavoritesRoute = FavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HeroverseRoute = HeroverseRouteImport.update({
+  id: '/heroverse',
+  path: '/heroverse',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dreamverse': typeof DreamverseRoute
   '/favorites': typeof FavoritesRoute
+  '/heroverse': typeof HeroverseRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dreamverse': typeof DreamverseRoute
   '/favorites': typeof FavoritesRoute
+  '/heroverse': typeof HeroverseRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dreamverse': typeof DreamverseRoute
   '/favorites': typeof FavoritesRoute
+  '/heroverse': typeof HeroverseRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dreamverse'
     | '/favorites'
+    | '/heroverse'
     | '/login'
     | '/profile'
     | '/signup'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dreamverse'
     | '/favorites'
+    | '/heroverse'
     | '/login'
     | '/profile'
     | '/signup'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dreamverse'
     | '/favorites'
+    | '/heroverse'
     | '/login'
     | '/profile'
     | '/signup'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DreamverseRoute: typeof DreamverseRoute
   FavoritesRoute: typeof FavoritesRoute
+  HeroverseRoute: typeof HeroverseRoute
   LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
   SignupRoute: typeof SignupRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/favorites'
       fullPath: '/favorites'
       preLoaderRoute: typeof FavoritesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/heroverse': {
+      id: '/heroverse'
+      path: '/heroverse'
+      fullPath: '/heroverse'
+      preLoaderRoute: typeof HeroverseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DreamverseRoute: DreamverseRoute,
   FavoritesRoute: FavoritesRoute,
+  HeroverseRoute: HeroverseRoute,
   LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
   SignupRoute: SignupRoute,
