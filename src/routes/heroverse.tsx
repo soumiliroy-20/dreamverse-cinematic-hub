@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Play, Bookmark, Zap } from "lucide-react";
+import { Bookmark, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-heroverse.jpg";
 import collectionArt from "@/assets/collection-heroverse.jpg";
 import heroPortrait from "@/assets/hero-portrait.jpg";
