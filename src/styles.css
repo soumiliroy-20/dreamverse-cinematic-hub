@@ -230,3 +230,39 @@ html[data-universe="heroverse"] h3 {
     display: none;
   }
 }
+
+@keyframes energy-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 34px 8px rgba(0, 191, 255, 0.35);
+  }
+}
+
+@keyframes energy-drift {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-120px) scale(1.25);
+    opacity: 0;
+  }
+}
+
+@utility animate-energy-pulse {
+  animation: energy-pulse 2.8s ease-in-out infinite;
+}
+
+@utility animate-energy-drift {
+  animation: energy-drift 7s linear infinite;
+}
+
+@utility hero-glow {
+  box-shadow: 0 0 40px -10px var(--primary);
+}
