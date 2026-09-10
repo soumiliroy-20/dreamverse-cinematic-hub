@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Bookmark } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { MovieCard } from "@/components/MovieCard";
-import { movies } from "@/data/movies";
+import { allMovies } from "@/data/movies";
 import { useLibrary } from "@/lib/library-context";
 
 export const Route = createFileRoute("/watchlist")({
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/watchlist")({
 
 function WatchlistPage() {
   const { watchlist } = useLibrary();
-  const saved = movies.filter((m) => watchlist.includes(m.id));
+  const saved = allMovies.filter((m) => watchlist.includes(m.id));
 
   return (
     <AppShell>
