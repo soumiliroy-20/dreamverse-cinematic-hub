@@ -104,7 +104,7 @@ This project was built with [Lovable](https://lovable.dev).
 
 
 
-
+this is the instruction for cloning the code
 ```sh
 git clone <this-repository-url>
 cd <repository-name>
