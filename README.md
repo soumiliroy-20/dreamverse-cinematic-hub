@@ -92,11 +92,6 @@ Technical Requirements:
 
 - Prepare a UniverseContext for future universe switching
 
-Do not implement HeroVerse yet.
-
-Only create the architecture and preview card for it.
-
-Use placeholder images and assets so they can be replaced later.
 
 This project was built with [Lovable](https://lovable.dev).
 
